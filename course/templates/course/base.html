@@ -1,0 +1,33 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>
+			NeuroBin
+		</title>
+		<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+		<link rel="stylesheet" href="{% static 'css/bootstrap-theme.min.css' %}">
+		<link rel="stylesheet" href="{% static 'css/style.css' %}">
+		<script src="{% static 'js/jquery.min.js' %}"></script>
+		<script src="{% static 'js/bootstrap.min.js' %}"></script>
+		<script src="{% static 'js/charts/loader.js' %}"></script>
+	</head>
+	<body>
+		<div class="container">
+			<div class="row header">
+				<div class="hero-unit">
+					<h1>NeuroBin</h1>
+					<p>Нейронная сеть для прогнозирования бинарных опционов</p>
+				</div>
+			</div>
+			{% block content %}
+			{% endblock %}
+			<div class="row" id="footer">
+				<span>
+					Стерлитамакский филиал ФГБОУ ВО "Башкирский государственный университет", 2018
+				</span>
+			</div>
+		</div>
+		<script src="{% static 'js/charts/chart.js' %}"></script>
+	</body>
+</html>

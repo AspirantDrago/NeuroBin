@@ -1,9 +1,11 @@
 from django.shortcuts import render
-from .models import Course, Currency
+from .models import Course, Currency, CurrencyGroup
 
 # Create your views here.
 def course_list(request):
-    return render(request, 'course/course_list.html', {})
+	l = [[el.name, [x for x in Currency.objects.filter(group=el)]] for el in CurrencyGroup.objects.all()]
+	group_l = [el.name for el in CurrencyGroup.objects.all()]
+	return render(request, 'course/course_list.html', {'course_l': l, 'groups': group_l})
 	
 
 def course_add(request, name, val, prop):
@@ -26,3 +28,8 @@ def course_clear(request, name):
 		return render(request, 'course/course_clear.html', {'status': 0})
 	else:
 		return render(request, 'course/course_clear.html', {'status': 1})
+		
+def course_view(request, name):
+	l = [[el.name, [x for x in Currency.objects.filter(group=el)]] for el in CurrencyGroup.objects.all()]
+	group_l = [el.name for el in CurrencyGroup.objects.all()]
+	return render(request, 'course/course.html', {'course_l': l, 'groups': group_l, 'name': name.replace('_', ' '), 'name2': name})

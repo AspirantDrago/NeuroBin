@@ -16,8 +16,12 @@ class Currency(models.Model):
 	group = models.CharField(max_length=16, null=True,
 		help_text='Наименование',
 		choices=[(el.name, el.name) for el in CurrencyGroup.objects.all()])
+		
 	def __str__(self):
 		return self.name
+		
+	def name_without_spaces(self):
+		return self.name.replace(' ', '_')
 
 
 class Course(models.Model):
