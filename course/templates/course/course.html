@@ -22,10 +22,9 @@
 							{% if el in groups %}
 								<li class="divider"></li>
 								{{ el }}							
-							{% endif %}
-							{% if el not in groups %}
+							{% else %}
 								{% for c in el %}
-									<li><a href="../course/{{ c.name_without_spaces }}">{{ c.name }}</a></li>
+									<li><a href="/course/{{ c.name_without_spaces }}/{{ time }}/{{ update }}">{{ c.name }}</a></li>
 								{% endfor %}
 							{% endif %}
 						{% endfor %}
@@ -38,6 +37,53 @@
 		<div id="chart_div" style="width: 100%; height: 500px;"></div>
 	</div>
 	<div class="row">
-		<span>Выберите интервал: </span>
+		<div class="col-xs-12 col-sm-6">
+			<ul class="nav nav-tabs">
+				<li class="dropdown">
+					<span>Выберите интервал: </span>
+					<a class="dropdown-toggle"
+					data-toggle="dropdown"
+					href="#">
+						{{ time_s }}
+						<b class="caret"></b>
+					</a>
+					<ul class="dropdown-menu">
+						{% for el in time_d %}
+							{% for x in el %}
+								{% if x in time_keys %}
+									<li><a href="/course/{{ name2 }}/{{ x }}/{{ update }}">
+								{% else %}
+									{{ x }}</a></li>
+								{% endif %}
+							{% endfor %}
+						{% endfor %}
+					</ul>
+				</li>
+			</ul>
+		</div>
+		<div class="col-xs-12 col-sm-6">
+			<ul class="nav nav-tabs">
+				<li class="dropdown">
+					<span>Частота обновления: </span>
+					<a class="dropdown-toggle"
+					data-toggle="dropdown"
+					href="#">
+						{{ update_s }}
+						<b class="caret"></b>
+					</a>
+					<ul class="dropdown-menu">
+						{% for el in update_d %}
+							{% for x in el %}
+								{% if x in update_keys %}
+									<li><a href="/course/{{ name2 }}/{{ time }}/{{ x }}">
+								{% else %}
+									{{ x }}</a></li>
+								{% endif %}
+							{% endfor %}
+						{% endfor %}
+					</ul>
+				</li>
+			</ul>
+		</div>
 	</div>
 {% endblock %}

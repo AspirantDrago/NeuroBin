@@ -3,11 +3,11 @@ google.charts.setOnLoadCallback(drawChart);
 
 function drawChart() {
 var data = google.visualization.arrayToDataTable([
-  ['Year', 'Sales', 'Expenses'],
-  ['2013',  1000,      400],
-  ['2014',  1170,      460],
-  ['2015',  660,       1120],
-  ['2016',  1030,      540]
+  ['Year', 'Текущий курс', 'Предсказание'],
+  ['2013',  1000,		null],
+  ['2014',  1170,      1060],
+  ['2015',  660,       620],
+  ['2016',  1030,      1040]
 ]);
 
 var options = {

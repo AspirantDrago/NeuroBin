@@ -16,10 +16,9 @@
 							{% if el in groups %}
 								<li class="divider"></li>
 								{{ el }}							
-							{% endif %}
-							{% if el not in groups %}
+							{% else %}
 								{% for c in el %}
-									<li><a href="../course/{{ c.name_without_spaces }}">{{ c.name }}</a></li>
+									<li><a href="/course/{{ c.name_without_spaces }}">{{ c.name }}</a></li>
 								{% endfor %}
 							{% endif %}
 						{% endfor %}
@@ -30,8 +29,5 @@
 	</div>
 	<div class="well chart"> 
 		Выберте курс
-	</div>
-	<div class="row">
-		<span>Выберите интервал: </span>
 	</div>
 {% endblock %}
