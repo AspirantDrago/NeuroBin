@@ -18,7 +18,10 @@ def course_add(request, name, val, prop):
 		
 def course_clear(request, name):
 	name = name.replace('_', ' ')
-	if(Currency.objects.filter(name=name)):
+	if name == 'all':
+		Course.objects.all().delete()
+		return render(request, 'course/course_clear.html', {'status': 0})
+	elif Currency.objects.filter(name=name):
 		Course.objects.filter(currency=name).delete()
 		return render(request, 'course/course_clear.html', {'status': 0})
 	else:
