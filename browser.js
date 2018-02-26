@@ -1,3 +1,5 @@
+var host = 'http://127.0.0.1:8000'
+
 document.getElementsByClassName("pin_text")[0].addEventListener("DOMSubtreeModified", function() {
 	var s1 = document.getElementsByClassName("pin_text")[0].textContent;
 	var s2;
@@ -14,5 +16,8 @@ document.getElementsByClassName("pin_text")[0].addEventListener("DOMSubtreeModif
 	}else{
 		s3 = document.querySelector("li.pair-tab_selected span.title").textContent;
 	}
-	console.log(s1, ' ', s2, ' ', s3);
+	s3 = s3.replace(' ', '_');
+	var x = new XMLHttpRequest();
+	x.open("GET", host + '/api/add/' + s3 + '/val=' + s1 + '&prop=' + s2, true);
+	x.send(null);
 });
