@@ -4,6 +4,9 @@
 {% block content %}
 	<script>
 		var course_name = '{{ name }}';
+		var time = {{ time }};
+		var update = {{ update }};
+		var mode = '{{ mode }}' == 'show';
 	</script>
 	<div class="row">
 		<p>
@@ -25,7 +28,7 @@
 								{{ el }}							
 							{% else %}
 								{% for c in el %}
-									<li><a href="/course/{{ c.name_without_spaces }}/{{ time }}/{{ update }}">{{ c.name }}</a></li>
+									<li><a href="/course/{{ c.name_without_spaces }}/{{ time }}/{{ update }}/{{ mode }}">{{ c.name }}</a></li>
 								{% endfor %}
 							{% endif %}
 						{% endfor %}
@@ -38,7 +41,7 @@
 		<div id="chart_div" style="width: 100%; height: 500px;"></div>
 	</div>
 	<div class="row">
-		<div class="col-xs-12 col-sm-6">
+		<div class="col-xs-12 col-sm-4">
 			<ul class="nav nav-tabs">
 				<li class="dropdown">
 					<span>Выберите интервал: </span>
@@ -52,7 +55,7 @@
 						{% for el in time_d %}
 							{% for x in el %}
 								{% if x in time_keys %}
-									<li><a href="/course/{{ name2 }}/{{ x }}/{{ update }}">
+									<li><a href="/course/{{ name2 }}/{{ x }}/{{ update }}/{{ mode }}">
 								{% else %}
 									{{ x }}</a></li>
 								{% endif %}
@@ -62,7 +65,7 @@
 				</li>
 			</ul>
 		</div>
-		<div class="col-xs-12 col-sm-6">
+		<div class="col-xs-12 col-sm-4">
 			<ul class="nav nav-tabs">
 				<li class="dropdown">
 					<span>Частота обновления: </span>
@@ -76,12 +79,33 @@
 						{% for el in update_d %}
 							{% for x in el %}
 								{% if x in update_keys %}
-									<li><a href="/course/{{ name2 }}/{{ time }}/{{ x }}">
+									<li><a href="/course/{{ name2 }}/{{ time }}/{{ x }}/{{ mode }}">
 								{% else %}
 									{{ x }}</a></li>
 								{% endif %}
 							{% endfor %}
 						{% endfor %}
+					</ul>
+				</li>
+			</ul>
+		</div>
+		<div class="col-xs-12 col-sm-4">
+			<ul class="nav nav-tabs">
+				<li class="dropdown">
+					<span>Прогноз: </span>
+					<a class="dropdown-toggle"
+					data-toggle="dropdown"
+					href="#">
+						{% if mode_v %}
+							Отображать
+						{% else %}
+							Не отображать
+						{% endif %}
+						<b class="caret"></b>
+					</a>
+					<ul class="dropdown-menu">
+						<li><a href="/course/{{ name2 }}/{{ time }}/{{ update }}/show">Отображать</a></li>
+						<li><a href="/course/{{ name2 }}/{{ time }}/{{ update }}/no">Не отображать</a></li>
 					</ul>
 				</li>
 			</ul>

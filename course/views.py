@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from .models import Course, Currency, CurrencyGroup
+from django.http import JsonResponse
+import json
 
 # Create your views here.
 def course_list(request):
@@ -30,7 +32,7 @@ def course_clear(request, name):
 		return render(request, 'course/course_clear.html', {'status': 1})
 
 		
-def course_view(request, name, time, update):
+def course_view(request, name, time, update, mode):
 	l = [[el.name, [x for x in Currency.objects.filter(group=el)]] for el in CurrencyGroup.objects.all()]
 	group_l = [el.name for el in CurrencyGroup.objects.all()]
 	default_picks = 30
@@ -46,14 +48,24 @@ def course_view(request, name, time, update):
 	if update not in update_d:
 		update = 1
 	update_s = update_d[update]
+	mode_v = (mode == 'show')
+	if mode_v:
+		mode_s = 'Показывать'
+	else:
+		mode_s = 'Не показывать'
 	return render(request, 'course/course.html', {
 		'course_l': l,'groups': group_l, 'name': name.replace('_', ' '), 'name2': name,
 		'time': time, 'time_d': time_d.items(), 'time_keys': time_d, 'time_s': time_s,
-		'picks': default_picks,
+		'picks': default_picks, 'mode': mode, 'mode_s': mode_s, 'mode_v': mode_v,
 		'update': update, 'update_d': update_d.items(), 'update_keys': update_d, 'update_s': update_s})
 	
 
 def course_view_default(request, name):
 	default_time = 60
 	default_update = 1
-	return course_view(request, name, 60, 1)
+	default_mode = 'no'
+	return course_view(request, name, default_time, default_update, default_mode)
+
+
+def course_get(request, name, time, update, mode):
+	return JsonResponse({'foo':'bar'})
